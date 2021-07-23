@@ -1,0 +1,42 @@
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmnls:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport"  content="width=device-width"/>
+    <title>Cliente</title>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet"></link>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+<body>
+
+<div class="container">
+    <div class="panel-heading" align="center">
+        <strong>Listagem de Cartórios</strong>
+    </div>
+
+    <div class="card" style="margin-top: 1%;">
+        <h2 th:if="${#lists.isEmpty(cartorios)}">Sem cartórios a listar</h2>
+        <ol class="list-group list-group-numbered" th:each="cartorio : ${cartorios}">
+            <li class="list-group-item d-flex justify-content-between align-items-start" style="margin-bottom: 3%;">
+                <div class="ms-2 me-auto">
+                    <div class="fw-bold" th:text="${cartorio.nome}"/>
+                    <div th:text="${cartorio.endereco}" />
+                    <ul th:each="certidao : ${cartorio.certidoes}">
+                        <li th:text="${certidao.nome}"></li>
+                    </ul>
+                    <div style="float: right">
+                        <a class="btn btn-sm btn-primary" th:href="@{/cartorio/editarCartorio/{id}(id=${cartorio.id})}">Editar</a>
+                        <a class="delete btn btn-sm btn-danger" th:href="@{/cartorio/excluirCartorio/{id}(id=${cartorio.id})}">Excluir</a>
+                    </div>
+                </div>
+            </li>
+        </ol>
+    </div>
+    <a class="btn btn-sm btn-primary" th:href="@{/cartorio/cadastrarCartorio}">Cadastrar Cartorio</a>
+</div>
+
+</body>
+</html>
